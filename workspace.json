@@ -1,0 +1,135 @@
+{
+  "version": 2,
+  "projects": {
+    "mi": {
+      "root": "apps/mi",
+      "sourceRoot": "apps/mi/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/mi",
+            "index": "apps/mi/src/index.html",
+            "main": "apps/mi/src/main.tsx",
+            "polyfills": "apps/mi/src/polyfills.ts",
+            "tsConfig": "apps/mi/tsconfig.app.json",
+            "assets": [
+              "apps/mi/src/favicon.ico",
+              "apps/mi/src/assets"
+            ],
+            "styles": [
+              "apps/mi/src/styles.scss"
+            ],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mi/src/environments/environment.ts",
+                  "with": "apps/mi/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "mi:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "mi:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/mi/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/mi"
+          ],
+          "options": {
+            "jestConfig": "apps/mi/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mi-e2e": {
+      "root": "apps/mi-e2e",
+      "sourceRoot": "apps/mi-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/mi-e2e/cypress.json",
+            "tsConfig": "apps/mi-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mi:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mi:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/mi-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "mi"
+}
